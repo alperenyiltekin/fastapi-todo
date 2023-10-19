@@ -31,7 +31,7 @@ async def read_all(db: db_dependency):
     return db.query(Todos).all()
 
 
-@app.get("/todo/{todo_id}", status_code=status.HTTP_200_OK)
+@app.get("/todo/{id}", status_code=status.HTTP_200_OK)
 async def read_todo(db: db_dependency, id: int = Path(gt=0)):
     model = db.query(Todos).filter(Todos.id == id).first()
     if model is not None:
@@ -47,7 +47,7 @@ async def create_todo(db: db_dependency, req: TodoRequest):
     db.commit()
 
 
-@app.put("/todo/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.put("/todo/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def updated_todo(db: db_dependency, req: TodoRequest, id: int = Path(gt=0)):
     model = db.query(Todos).filter(Todos.id == id).first()
     if model is None:
